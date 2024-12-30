@@ -9,6 +9,11 @@
             "path": "../../Astro/foundation"
         },
         {
+            "name": "drizzly-ecommerce",
+            "path": "../drizzly-ecommerce"
+        },
+        {
+            "name": "cotizaciones",
             "path": "."
         }
     ]
