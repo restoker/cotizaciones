@@ -58,19 +58,19 @@ const AuthForm = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between">
+                {/* <div className="flex items-center justify-between">
 
                     <div className="text-sm leading-6">
                         <a href="#" className="font-semibold text-amber-600 hover:text-amber-500">
                             Forgot password?
                         </a>
                     </div>
-                </div>
+                </div> */}
 
                 <div>
                     <button
                         type="submit"
-                        className="flex w-full justify-center rounded-md bg-amber-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+                        className="flex w-full justify-center rounded-md bg-amber-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 mt-16"
                     >
                         Sign in
                     </button>
@@ -122,9 +122,8 @@ const AuthForm = () => {
                         }}
                         render={(eventProps, animationProps) => (
 
-                            <a
+                            <button
                                 {...eventProps}
-                                href="#"
                                 className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-zinc-300 focus-visible:ring-transparent"
                             >
                                 {/* <svg fill="currentColor" viewBox="0 0 20 20" aria-hidden="true" className="h-5 w-5 fill-[#24292F]">
@@ -136,7 +135,7 @@ const AuthForm = () => {
                                 </svg> */}
                                 <div {...animationProps} />
                                 <span className="text-sm font-semibold leading-6">GitHub</span>
-                            </a>
+                            </button>
                         )}
                     />
 
