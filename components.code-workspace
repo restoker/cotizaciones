@@ -1,0 +1,15 @@
+{
+    "folders": [
+        {
+            "name": "components",
+            "path": "../../../temaplates react/adamwathanss-tuibeta 25:10:24/react/components"
+        },
+        {
+            "name": "foundation",
+            "path": "../../Astro/foundation"
+        },
+        {
+            "path": "."
+        }
+    ]
+}
