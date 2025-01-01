@@ -1,27 +1,56 @@
 'use client';
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react'
+import { useAction } from 'next-safe-action/hooks'
+import { useForm } from 'react-hook-form'
+import lock from "react-useanimations/lib/lock";
+import github from 'react-useanimations/lib/github'
+import { loginAction } from '@/server/actions';
+import { z } from 'zod';
+import { loginSchema, LoginType } from '@/types/login-schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
 
 const UseAnimation = dynamic(() => import("react-useanimations"), {
     loading: () => <div>Loading...</div>,
     ssr: false,
 });
 
-import lock from "react-useanimations/lib/lock";
-import github from 'react-useanimations/lib/github'
 
 const AuthForm = () => {
     const [see, setSee] = useState(false);
 
+    const { execute, status } = useAction(loginAction);
+
+    const loginUser = (data: LoginType) => {
+        console.log(data);
+    }
+
+    const { register, handleSubmit, formState: { errors }, control } = useForm<LoginType>({
+        mode: 'all',
+        resolver: zodResolver(loginSchema),
+        defaultValues: {
+            email: '',
+            password: '',
+        }
+    });
+
     return (
         <>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit(loginUser)}>
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-100">
                         Email address
                     </label>
                     <div className="mt-2">
                         <input
+                            {...register('email', {
+                                required: { value: true, message: 'El campo es obligatorio' },
+                                pattern: {
+                                    value: /^\S+@\S+\.\S+$/,
+                                    message: "Entered value does not match email format"
+                                }
+                            })}
                             id="email"
                             name="email"
                             type="email"
@@ -29,6 +58,7 @@ const AuthForm = () => {
                             autoComplete="email"
                             className="block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6 bg-transparent"
                         />
+                        {errors.email && <p className="text-red-500 mt-2 text-sm">{errors.email?.message}😥</p>}
                     </div>
                 </div>
 
@@ -38,6 +68,13 @@ const AuthForm = () => {
                     </label>
                     <div className="mt-2 relative">
                         <input
+                            {...register('password', {
+                                required: "required",
+                                minLength: {
+                                    value: 5,
+                                    message: "min length is 5"
+                                }
+                            })}
                             id="password"
                             name="password"
                             type={see ? 'text' : 'password'}
@@ -45,6 +82,7 @@ const AuthForm = () => {
                             autoComplete="current-password"
                             className="block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6 bg-transparent"
                         />
+                        {errors.password && <p className="text-red-500 mt-2 text-sm">{errors.password?.message}😥</p>}
                         <UseAnimation
                             animation={lock}
                             size={30}
@@ -69,8 +107,9 @@ const AuthForm = () => {
 
                 <div>
                     <button
+                        disabled={status === 'executing' ? true : false}
                         type="submit"
-                        className="flex w-full justify-center rounded-md bg-amber-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 mt-16"
+                        className={clsx(status === 'executing' ? "cursor-progress" : "cursor-pointer", "flex w-full justify-center rounded-md bg-amber-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 mt-10")}
                     >
                         Sign in
                     </button>
