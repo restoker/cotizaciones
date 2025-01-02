@@ -4,6 +4,7 @@ import {
     pgEnum,
     pgTable,
     primaryKey,
+    real,
     text,
     timestamp
 } from "drizzle-orm/pg-core";
@@ -36,3 +37,44 @@ export const passwordResetTokens = pgTable("passwordResetToken",
     //     }]
     // }
 )
+
+export const products = pgTable('products', {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    description: text('description').notNull(),
+    color: text('color').notNull(),
+    title: text('title').notNull(),
+    // created: timestamp('created').defaultNow(),
+    price: real('price').notNull(),
+    updated: timestamp('updated').defaultNow(),
+});
+
+
+export const productImages = pgTable('productImages', {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    url: text('url').notNull(),
+    size: real('size').notNull(),
+    key: text('key').notNull().unique(),
+    name: text('name').notNull(),
+    productId: text("productId").notNull()
+        .references(() => products.id, { onDelete: 'cascade' })
+});
+
+
+export const productVariant = pgTable('productVariant', {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    color: text('color').notNull(),
+    productType: text('productType').notNull(),
+    productId: text("productId").notNull().references(() => products.id, { onDelete: 'cascade' }),
+    updated: timestamp('updated').defaultNow(),
+});
+
+export const variantImages = pgTable('variantImages', {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    url: text('url').notNull(),
+    size: real('size').notNull(),
+    key: text('key').notNull().unique(),
+    name: text('name').notNull(),
+    order: real('order').notNull(),
+    variantId: text("variantId").notNull()
+        .references(() => productVariant.id, { onDelete: 'cascade' })
+});
