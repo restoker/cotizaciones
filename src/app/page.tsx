@@ -1,6 +1,11 @@
+import { auth } from "@/server/auth";
 import AuthForm from "./auth/auth-form";
+import { redirect } from "next/navigation";
 
-export default function AuthPage() {
+export default async function AuthPage() {
+    const session = await auth();
+
+    if (session?.user) redirect('/');
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">

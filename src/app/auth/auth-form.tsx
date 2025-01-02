@@ -38,6 +38,7 @@ const AuthForm = () => {
                         duration: 1000,
                     },
                 );
+                window.location.replace('/dashboard');
             }
             if (data && !data.ok) {
                 toast.error(`${data.msg}`,

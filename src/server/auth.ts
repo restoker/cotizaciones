@@ -3,6 +3,7 @@ import { db } from '.';
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import Credentials from 'next-auth/providers/credentials';
 import { loginSchema } from '@/types/login-schema';
+import bcrypt from 'bcryptjs';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     adapter: DrizzleAdapter(db),
@@ -10,8 +11,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     session: {
         strategy: 'jwt',
     },
-    pages: {
-        signIn: '/'
+    callbacks: {
+        authorized({ auth, request: { nextUrl } }) {
+            // console.log(auth);
+            // const isLoggedIn = !!auth?.user;
+            // const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+            // if (isOnDashboard) {
+            //     if (isLoggedIn) return true;
+            //     return false; // Redirect unauthenticated users to login page
+            // } else if (isLoggedIn) {
+            //     return Response.redirect(new URL('/dashboard', nextUrl));
+            // }
+            return true;
+        },
     },
     providers: [
         Credentials({
@@ -21,11 +33,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     return null
                 }
                 const { email, password } = parsedCredentials.data;
-                console.log(email);
-                console.log(password);
+                const user = await db.query.users.findFirst({
+                    where: (users, { eq }) => eq(users.email, email),
+                });
+                if (!user) return null;
+                if (!user || !user.password) return null;
+
+                // verificar el password
+                const passCorrect = await bcrypt.compare(password, user.password);
+
+                if (!passCorrect) return null;
+                const { password: otro, ...rest } = user;
+                return rest;
                 // const user = await getUser(email);
                 // if (!user) return null;
-                return null;
             },
         }),
     ],

@@ -1,4 +1,5 @@
 // import { getEvents } from '@/data'
+import { Layout } from '@/components/layout'
 import '@/styles/tailwind.css'
 import type { Metadata } from 'next'
 import type React from 'react'
@@ -27,9 +28,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Toaster />
-        {/* <ApplicationLayout events={events}> */}
-        {children}
-        {/* </ApplicationLayout> */}
+        <Layout>
+          {children}
+        </Layout>
       </body>
     </html>
   )

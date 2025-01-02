@@ -5,6 +5,7 @@ import { actionClient } from "@/types/safe-action";
 import { db } from "..";
 import bcrypt from 'bcryptjs'
 import { signIn } from "../auth";
+import { AuthError } from "next-auth";
 
 
 export const loginAction = actionClient
@@ -17,15 +18,30 @@ export const loginAction = actionClient
 
             if (!user) return { ok: false, msg: 'Usuario o contraseña incorrectas' }
 
-            const passwordCorrect = await bcrypt.compare(user.password, password);
+            const passwordCorrect = await bcrypt.compare(password, user.password);
             if (!passwordCorrect) return { ok: false, msg: 'Usuario o contraseña incorrectos' };
-            // await signIn('credentials', {
-            //     ...{ email, password },
-            //     redirect: false,
-            // });
+            await signIn('credentials', {
+                ...{ email, password },
+                redirect: false,
+            });
             const { password: Elpassword, ...rest } = user;
+            // console.log(rest);
             return { ok: true, msg: `Bienvenido nuevamente ${user.name}`, data: rest };
         } catch (e) {
-            return { ok: false, msg: 'Error on server :D' }
+            // console.log(e);
+            if (e instanceof AuthError) {
+                switch (e.type) {
+                    case 'CredentialsSignin':
+                        return { ok: false, msg: 'Invalid credentials.' };
+                    case 'AccessDenied':
+                        return { ok: false, msg: e.message };
+                    case 'OAuthSignInError':
+                        return { ok: false, msg: e.message };
+
+                    default:
+                        return { ok: false, msg: 'Something went wrong' };
+                }
+            }
+            return { ok: false, msg: 'Error on server ' };
         }
     })

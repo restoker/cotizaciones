@@ -41,9 +41,21 @@ import {
   Square2StackIcon,
   TicketIcon,
 } from '@heroicons/react/20/solid'
+import { signOut } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
+import { MouseEventHandler } from 'react'
 
 function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' }) {
+
+
+
+  const cerrarSesion: MouseEventHandler<HTMLButtonElement> | undefined = async (e) => {
+    e.preventDefault();
+    await signOut();
+  }
+  // const cerrarSesion: MouseEventHandler<HTMLButtonElement> | undefined = async (e) => {
+
+  // }
   return (
     <DropdownMenu className="min-w-64" anchor={anchor}>
       <DropdownItem href="#">
@@ -60,9 +72,11 @@ function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' })
         <DropdownLabel>Share feedback</DropdownLabel>
       </DropdownItem>
       <DropdownDivider />
-      <DropdownItem href="#">
+      <DropdownItem onClick={cerrarSesion}>
         <ArrowRightStartOnRectangleIcon />
-        <DropdownLabel>Sign out</DropdownLabel>
+        <DropdownLabel>
+          Sign out
+        </DropdownLabel>
       </DropdownItem>
     </DropdownMenu>
   )
@@ -126,19 +140,19 @@ export function ApplicationLayout({
 
           <SidebarBody>
             <SidebarSection>
-              <SidebarItem href="/" current={pathname === '/'}>
+              <SidebarItem href="/dashboard" current={pathname === '/dashboard'}>
                 <HomeIcon />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/events" current={pathname.startsWith('/events')}>
+              <SidebarItem href="/dashboard/events" current={pathname.startsWith('/dashboard/events')}>
                 <Square2StackIcon />
                 <SidebarLabel>Events</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/orders" current={pathname.startsWith('/orders')}>
+              <SidebarItem href="/dashboard/orders" current={pathname.startsWith('/dashboard/orders')}>
                 <TicketIcon />
                 <SidebarLabel>Orders</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/settings" current={pathname.startsWith('/settings')}>
+              <SidebarItem href="/dashboard/settings" current={pathname.startsWith('/dashboard/settings')}>
                 <Cog6ToothIcon />
                 <SidebarLabel>Settings</SidebarLabel>
               </SidebarItem>
