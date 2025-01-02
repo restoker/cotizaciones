@@ -10,7 +10,6 @@ import {
 // import type { AdapterAccountType } from 'next-auth/adapters';
 
 export const RoleEnum = pgEnum("roles", ["user", "admin"]);
-
 export const users = pgTable("user", {
     id: text("id")
         .primaryKey()
@@ -18,7 +17,7 @@ export const users = pgTable("user", {
     name: text("name"),
     email: text("email").notNull().unique(),
     image: text("image"),
-    password: text('password'),
+    password: text('password').notNull(),
     role: RoleEnum("roles").default('user'),
 })
 

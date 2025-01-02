@@ -1,9 +1,18 @@
 import { initialData } from "./seed";
+import { db } from '../server'
+import { users } from "../server/schema";
 
-async function main() {
+const main = async () => {
     console.log('Seed ejecutado');
+    const promise1 = await db.delete(users);
+    // delete all registers
+    await Promise.all([promise1,]);
 
-    console.log(initialData);
+    const { usuarios } = initialData;
+
+    usuarios.map(async (user) => {
+        await db.insert(users).values(user);
+    })
 }
 
 (() => {

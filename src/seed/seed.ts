@@ -9,26 +9,28 @@ interface SeedUser {
     email: string,
     password: string,
     name: string,
-    rol: Role[]
+    role: Role,
+    image?: string,
 }
 
 interface SeedData {
-    users: SeedUser[],
+    usuarios: SeedUser[],
 }
 
 export const initialData: SeedData = {
-    users: [
+    usuarios: [
         {
             email: 'milthon@gmail.com',
             password: bcrypt.hashSync('12345', bcrypt.genSaltSync(10)),
-            name: 'milthon ttito',
-            rol: [Role.admin, Role.user]
+            name: 'doom',
+            role: Role.admin,
+            image: 'https://avatars.githubusercontent.com/u/32400065?v=4&size=64'
         },
         {
             email: 'peker@gmail.com',
             password: bcrypt.hashSync('12345', bcrypt.genSaltSync(10)),
             name: 'peker diaz',
-            rol: [Role.user]
+            role: Role.user
         },
     ],
 }

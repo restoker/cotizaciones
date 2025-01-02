@@ -5,15 +5,57 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1735607046997,
-      "tag": "0000_hesitant_mantis",
+      "when": 1735782175168,
+      "tag": "0000_great_slyde",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1735743232641,
-      "tag": "0001_needy_young_avengers",
+      "when": 1735782784547,
+      "tag": "0001_minor_famine",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1735782837012,
+      "tag": "0002_odd_frightful_four",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1735782940245,
+      "tag": "0003_clear_wrecker",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1735783024484,
+      "tag": "0004_exotic_princess_powerful",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1735783580480,
+      "tag": "0005_magical_sentinel",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1735783665001,
+      "tag": "0006_secret_amazoness",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1735785000538,
+      "tag": "0007_free_red_shift",
       "breakpoints": true
     }
   ]

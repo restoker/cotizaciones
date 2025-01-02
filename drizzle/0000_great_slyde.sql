@@ -12,5 +12,6 @@ CREATE TABLE "user" (
 	"email" text NOT NULL,
 	"image" text,
 	"password" text,
-	"roles" "roles" DEFAULT 'user'
+	"roles" "roles" DEFAULT 'user',
+	CONSTRAINT "user_email_unique" UNIQUE("email")
 );

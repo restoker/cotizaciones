@@ -1,6 +1,6 @@
 {
-  "id": "8aabde46-d679-44dc-a393-982b0c30ddb8",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "a1b23e4a-5c1a-4b63-bc73-8fe29d6e8aed",
+  "prevId": "03efb04f-2e8c-4793-a721-c8f853442440",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -77,11 +77,10 @@
         },
         "roles": {
           "name": "roles",
-          "type": "roles",
-          "typeSchema": "public",
+          "type": "roles[]",
           "primaryKey": false,
           "notNull": false,
-          "default": "'user'"
+          "default": "'{}'"
         }
       },
       "indexes": {},

@@ -2,6 +2,7 @@
 import '@/styles/tailwind.css'
 import type { Metadata } from 'next'
 import type React from 'react'
+import { Toaster } from 'sonner'
 // import { ApplicationLayout } from './dashboard/application-layout'
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </head>
       <body>
+        <Toaster />
         {/* <ApplicationLayout events={events}> */}
         {children}
         {/* </ApplicationLayout> */}

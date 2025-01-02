@@ -1,6 +1,6 @@
 {
-  "id": "8aabde46-d679-44dc-a393-982b0c30ddb8",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "6b2a8ff0-d532-4db0-8f57-2bc21dc91e85",
+  "prevId": "57493876-d85f-4b29-873e-443e80660aa1",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -80,7 +80,7 @@
           "type": "roles",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "'user'"
         }
       },
@@ -106,8 +106,8 @@
       "name": "roles",
       "schema": "public",
       "values": [
-        "user",
-        "admin"
+        "admin",
+        "user"
       ]
     }
   },

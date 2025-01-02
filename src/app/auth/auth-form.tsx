@@ -10,6 +10,8 @@ import { z } from 'zod';
 import { loginSchema, LoginType } from '@/types/login-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
+import { toast } from 'sonner';
+import { CheckCircleIcon } from '@heroicons/react/20/solid';
 
 const UseAnimation = dynamic(() => import("react-useanimations"), {
     loading: () => <div>Loading...</div>,
@@ -20,10 +22,50 @@ const UseAnimation = dynamic(() => import("react-useanimations"), {
 const AuthForm = () => {
     const [see, setSee] = useState(false);
 
-    const { execute, status } = useAction(loginAction);
+    const { execute, status } = useAction(loginAction, {
+        onSuccess: ({ data }) => {
+            if (data && data.ok) {
+                toast.success(`${data.msg}`,
+                    {
+                        classNames: {
+                            toast: 'text-white bg-green-400',
+                            closeButton: 'bg-green-400 text-red-700'
+                        },
+                        closeButton: true,
+                        position: 'top-right',
+                        // duration: Infinity,
+                        icon: <CheckCircleIcon className='animate-bounce' />,
+                        duration: 1000,
+                    },
+                );
+            }
+            if (data && !data.ok) {
+                toast.error(`${data.msg}`,
+                    {
+                        classNames: {
+                            toast: 'text-white bg-red-400',
+                            closeButton: 'bg-red-400 text-red-700'
+                        },
+                        closeButton: true,
+                        position: 'top-right',
+                        // duration: Infinity,
+                        icon: <CheckCircleIcon className='animate-bounce' />,
+                        duration: 2000,
+                    },
+                );
+            }
+        },
+        onError: ({ error }) => {
+            toast.error(error.serverError)
+        }
+    });
+
+
+
 
     const loginUser = (data: LoginType) => {
         console.log(data);
+        execute(data);
     }
 
     const { register, handleSubmit, formState: { errors }, control } = useForm<LoginType>({

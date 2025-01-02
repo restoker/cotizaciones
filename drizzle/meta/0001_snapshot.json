@@ -1,6 +1,6 @@
 {
-  "id": "50ca6d5f-f199-49e3-a641-cfcff4e5af69",
-  "prevId": "08867670-3e31-4c6f-a50d-b8947f6208b1",
+  "id": "490cbf3a-ff4b-4d3e-a522-0445d1ab2edc",
+  "prevId": "8aabde46-d679-44dc-a393-982b0c30ddb8",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -75,8 +75,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "roles": {
-          "name": "roles",
+        "role": {
+          "name": "role",
           "type": "roles",
           "typeSchema": "public",
           "primaryKey": false,
