@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 export default async function AuthPage() {
     const session = await auth();
 
-    if (session?.user) redirect('/');
+    if (session?.user) redirect('/dashboard');
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">

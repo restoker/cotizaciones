@@ -41,21 +41,16 @@ import {
   Square2StackIcon,
   TicketIcon,
 } from '@heroicons/react/20/solid'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 import { MouseEventHandler } from 'react'
 
 function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' }) {
 
-
-
   const cerrarSesion: MouseEventHandler<HTMLButtonElement> | undefined = async (e) => {
     e.preventDefault();
     await signOut();
   }
-  // const cerrarSesion: MouseEventHandler<HTMLButtonElement> | undefined = async (e) => {
-
-  // }
   return (
     <DropdownMenu className="min-w-64" anchor={anchor}>
       <DropdownItem href="#">
@@ -90,6 +85,12 @@ export function ApplicationLayout({
   children: React.ReactNode
 }) {
   let pathname = usePathname()
+
+  const session = useSession();
+  const { data } = session;
+  const image = data?.user.image || '';
+  const email = data?.user.email || 'milthon@gmail.com';
+  const name = data?.user.name || 'milthon';
 
   return (
     <SidebarLayout
@@ -146,11 +147,11 @@ export function ApplicationLayout({
               </SidebarItem>
               <SidebarItem href="/dashboard/events" current={pathname.startsWith('/dashboard/events')}>
                 <Square2StackIcon />
-                <SidebarLabel>Events</SidebarLabel>
+                <SidebarLabel>Productos</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/dashboard/orders" current={pathname.startsWith('/dashboard/orders')}>
                 <TicketIcon />
-                <SidebarLabel>Orders</SidebarLabel>
+                <SidebarLabel>Cotizaciones</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/dashboard/settings" current={pathname.startsWith('/dashboard/settings')}>
                 <Cog6ToothIcon />
@@ -185,11 +186,11 @@ export function ApplicationLayout({
             <Dropdown>
               <DropdownButton as={SidebarItem}>
                 <span className="flex min-w-0 items-center gap-3">
-                  <Avatar src="/users/erica.jpg" className="size-10" square alt="" />
+                  <Avatar src={image} className="size-10" square alt="" />
                   <span className="min-w-0">
-                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">Erica</span>
+                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">{name}</span>
                     <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
-                      erica@example.com
+                      {email}
                     </span>
                   </span>
                 </span>

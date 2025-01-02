@@ -42,46 +42,44 @@ export default async function Events() {
       </div>
       <ul className="mt-10">
         {events.map((event, index) => (
-          <>
-            <li key={event.id}>
-              <Divider soft={index > 0} />
-              <div className="flex items-center justify-between">
-                <div key={event.id} className="flex gap-6 py-6">
-                  <div className="w-32 shrink-0">
-                    <Link href={event.url} aria-hidden="true">
-                      <img className="aspect-[3/2] rounded-lg shadow" src={event.imgUrl} alt="" />
-                    </Link>
-                  </div>
-                  <div className="space-y-1.5">
-                    <div className="text-base/6 font-semibold">
-                      <Link href={event.url}>{event.name}</Link>
-                    </div>
-                    <div className="text-xs/6 text-zinc-500">
-                      {event.date} at {event.time} <span aria-hidden="true">·</span> {event.location}
-                    </div>
-                    <div className="text-xs/6 text-zinc-600">
-                      {event.ticketsSold}/{event.ticketsAvailable} tickets sold
-                    </div>
-                  </div>
+          <li key={event.id}>
+            <Divider soft={index > 0} />
+            <div className="flex items-center justify-between">
+              <div key={event.id} className="flex gap-6 py-6">
+                <div className="w-32 shrink-0">
+                  <Link href={event.url} aria-hidden="true">
+                    <img className="aspect-[3/2] rounded-lg shadow" src={event.imgUrl} alt="" />
+                  </Link>
                 </div>
-                <div className="flex items-center gap-4">
-                  <Badge className="max-sm:hidden" color={event.status === 'On Sale' ? 'lime' : 'zinc'}>
-                    {event.status}
-                  </Badge>
-                  <Dropdown>
-                    <DropdownButton plain aria-label="More options">
-                      <EllipsisVerticalIcon />
-                    </DropdownButton>
-                    <DropdownMenu anchor="bottom end">
-                      <DropdownItem href={event.url}>View</DropdownItem>
-                      <DropdownItem>Edit</DropdownItem>
-                      <DropdownItem>Delete</DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
+                <div className="space-y-1.5">
+                  <div className="text-base/6 font-semibold">
+                    <Link href={event.url}>{event.name}</Link>
+                  </div>
+                  <div className="text-xs/6 text-zinc-500">
+                    {event.date} at {event.time} <span aria-hidden="true">·</span> {event.location}
+                  </div>
+                  <div className="text-xs/6 text-zinc-600">
+                    {event.ticketsSold}/{event.ticketsAvailable} tickets sold
+                  </div>
                 </div>
               </div>
-            </li>
-          </>
+              <div className="flex items-center gap-4">
+                <Badge className="max-sm:hidden" color={event.status === 'On Sale' ? 'lime' : 'zinc'}>
+                  {event.status}
+                </Badge>
+                <Dropdown>
+                  <DropdownButton plain aria-label="More options">
+                    <EllipsisVerticalIcon />
+                  </DropdownButton>
+                  <DropdownMenu anchor="bottom end">
+                    <DropdownItem href={event.url}>View</DropdownItem>
+                    <DropdownItem>Edit</DropdownItem>
+                    <DropdownItem>Delete</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
+            </div>
+          </li>
         ))}
       </ul>
     </>
