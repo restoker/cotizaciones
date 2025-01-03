@@ -38,7 +38,11 @@ export default async function Events() {
             </div>
           </div>
         </div>
-        <Button>Create event</Button>
+        <Button className='cursor-pointer'>
+          <Link href={'/dashboard/addproduct'}>
+            Crear Producto
+          </Link>
+        </Button>
       </div>
       <ul className="mt-10">
         {events.map((event, index) => (
