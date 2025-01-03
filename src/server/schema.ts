@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
     boolean,
     integer,
@@ -78,3 +79,35 @@ export const variantImages = pgTable('variantImages', {
     variantId: text("variantId").notNull()
         .references(() => productVariant.id, { onDelete: 'cascade' })
 });
+
+export const productRelations = relations(products, ({ one, many }) => ({
+    productVariant: many(productVariant, { relationName: 'productVariants' }),
+    productImages: many(productImages, { relationName: 'productImages' })
+    // reviews: many(reviews, { relationName: 'reviews' }),
+}));
+
+export const productVariantsRelations = relations(productVariant, ({ one, many }) => ({
+    products: one(products, {
+        fields: [productVariant.productId],
+        references: [products.id],
+        relationName: "productVariants"
+    }),
+    variantImages: many(variantImages, { relationName: 'variantImages' }),
+    // variantTags: many(variantTags, { relationName: 'variantTags' }),
+}));
+
+export const productImagesRelations = relations(productImages, ({ one, many }) => ({
+    products: one(products, {
+        fields: [productImages.productId],
+        references: [products.id],
+        relationName: 'productImages',
+    })
+}));
+
+export const variantImagesRelations = relations(variantImages, ({ one, many }) => ({
+    productVariant: one(productVariant, {
+        fields: [variantImages.variantId],
+        references: [productVariant.id],
+        relationName: 'variantImages',
+    })
+}));
