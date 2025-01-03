@@ -9,7 +9,7 @@ import { BoldIcon, ItalicIcon, ListBulletIcon, NumberedListIcon, StrikethroughIc
 import { Toggle } from '@/components/ui/toggle';
 
 // const Tiptap = ({ value, setValue }: { value: string, setValue: UseFormSetValue<any> }) => {
-const Tiptap = ({ value }: { value: string }) => {
+const Tiptap = ({ value, }: { value: string }) => {
     const { setValue } = useFormContext();
     // const { setValue } = useFormContext();
     const editor = useEditor({

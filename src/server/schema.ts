@@ -42,13 +42,11 @@ export const passwordResetTokens = pgTable("passwordResetToken",
 export const products = pgTable('products', {
     id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
     description: text('description').notNull(),
-    color: text('color').notNull(),
     title: text('title').notNull(),
     // created: timestamp('created').defaultNow(),
     price: real('price').notNull(),
     updated: timestamp('updated').defaultNow(),
 });
-
 
 export const productImages = pgTable('productImages', {
     id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
@@ -59,7 +57,6 @@ export const productImages = pgTable('productImages', {
     productId: text("productId").notNull()
         .references(() => products.id, { onDelete: 'cascade' })
 });
-
 
 export const productVariant = pgTable('productVariant', {
     id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
