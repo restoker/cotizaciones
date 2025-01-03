@@ -51,9 +51,9 @@ const FormProduct = ({ editMode, children, productId }: FormProps) => {
                         name="title"
                         render={({ field }) => (
                             <FormItem className='max-w-xl'>
-                                <FormLabel>Product Title</FormLabel>
+                                <FormLabel>Nombre producto</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Saekdong Stripe" {...field} />
+                                    <Input placeholder="Zapatillas addidas" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -64,7 +64,7 @@ const FormProduct = ({ editMode, children, productId }: FormProps) => {
                         name="description"
                         render={({ field }) => (
                             <FormItem className='max-w-xl'>
-                                <FormLabel>Description</FormLabel>
+                                <FormLabel>Descripción</FormLabel>
                                 <FormControl>
                                     <Tiptap
                                         value={field.value}
@@ -80,11 +80,11 @@ const FormProduct = ({ editMode, children, productId }: FormProps) => {
                         name="price"
                         render={({ field }) => (
                             <FormItem className='max-w-xl'>
-                                <FormLabel>Product Price</FormLabel>
+                                <FormLabel>Precio</FormLabel>
                                 <FormControl>
                                     <div className="flex items-center gap-2">
                                         <CurrencyDollarIcon
-                                            className="p-2 bg-muted  rounded-md size-8"
+                                            className="bg-muted  rounded-md size-8"
                                         />
                                         <Input
                                             {...field}

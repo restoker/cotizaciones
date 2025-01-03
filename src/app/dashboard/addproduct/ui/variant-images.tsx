@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import {
     Table,
@@ -121,7 +121,7 @@ const VariantImages = () => {
                     >
                         {fields.map((field, i) => {
                             return (
-                                <>
+                                <Fragment key={i}>
                                     {/* <TableCell className='font-medium'>{i}</TableCell> */}
                                     <TableCell>{field.name}</TableCell>
                                     <TableCell>{(field.size / (1024 * 1024)).toFixed(2)} MB</TableCell>
@@ -149,7 +149,7 @@ const VariantImages = () => {
                                             />
                                         </Button>
                                     </TableCell>
-                                </>
+                                </Fragment>
                             );
                         })}
                     </Reorder.Group>
