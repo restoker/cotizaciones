@@ -3,13 +3,13 @@
 import { productSchema } from "@/types/product-schema";
 import { actionClient } from "@/types/safe-action";
 import { db } from "..";
-import { products } from '../schema';
+import { productImages, products } from '../schema';
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 export const createProductAction = actionClient
     .schema(productSchema)
-    .action(async ({ parsedInput: { title, price, description, id }, ctx: { } }) => {
+    .action(async ({ parsedInput: { title, price, description, id, image }, ctx: { } }) => {
         try {
             if (id) {
                 const product = await db.query.products.findFirst({
@@ -28,8 +28,15 @@ export const createProductAction = actionClient
                 const productAdded = await db.insert(products).values({
                     title,
                     description,
-                    price
+                    price,
                 }).returning();
+                await db.insert(productImages).values({
+                    key: image[0].key!,
+                    productId: productAdded[0].id,
+                    url: image[0].url,
+                    size: image[0].size,
+                    name: image[0].name
+                })
                 revalidatePath('/dashboard/products')
                 return { ok: true, msg: `${productAdded[0].title} se creo correctamente` };
             }

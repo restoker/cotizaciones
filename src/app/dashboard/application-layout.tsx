@@ -100,7 +100,7 @@ export function ApplicationLayout({
           <NavbarSection>
             <Dropdown>
               <DropdownButton as={NavbarItem}>
-                <Avatar src="/users/erica.jpg" square />
+                <Avatar src={image} square />
               </DropdownButton>
               <AccountDropdownMenu anchor="bottom end" />
             </Dropdown>
@@ -145,7 +145,7 @@ export function ApplicationLayout({
                 <HomeIcon />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/dashboard/events" current={pathname.startsWith('/dashboard/events')}>
+              <SidebarItem href="/dashboard/products" current={pathname.startsWith('/dashboard/products')}>
                 <Square2StackIcon />
                 <SidebarLabel>Productos</SidebarLabel>
               </SidebarItem>

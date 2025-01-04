@@ -71,6 +71,13 @@
       "when": 1735916019877,
       "tag": "0009_past_legion",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1735947873559,
+      "tag": "0010_natural_kang",
+      "breakpoints": true
     }
   ]
 }

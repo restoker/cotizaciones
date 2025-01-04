@@ -49,7 +49,7 @@ const VariantImages = () => {
                         <FormControl>
                             <UploadDropzone
                                 className='ut-allowed-content:text-amber-300 ut-label:text-amber-500 ut-upload-icon:text-amber-500/60 hover:bg-amber-500/10 transition-all duration-500 ease-in-out border-amber-500 ut-button:bg-amber-500/75 ut-button:ut-readying:bg-amber-400'
-                                endpoint='variantUploader'
+                                endpoint='productUploader'
                                 onUploadError={(error) => {
                                     setError('image', {
                                         type: 'validate',
@@ -84,7 +84,7 @@ const VariantImages = () => {
                                 }}
                                 config={{ mode: 'auto' }}
                                 onUploadProgress={() => {
-                                    console.log('cargando');
+                                    // console.log('cargando');
                                 }}
                             />
                         </FormControl>
@@ -99,7 +99,7 @@ const VariantImages = () => {
                             {/* <TableHead className="w-[100px]">Order</TableHead> */}
                             <TableHead>Name</TableHead>
                             <TableHead>Size</TableHead>
-                            <TableHead>Image</TableHead>
+                            <TableHead className='text-center'>Image</TableHead>
                             <TableHead>Actions</TableHead>
                             {/* <TableHead className="text-right">Amount</TableHead> */}
                         </TableRow>
@@ -121,14 +121,14 @@ const VariantImages = () => {
                     >
                         {fields.map((field, i) => {
                             return (
-                                <Fragment key={i}>
+                                <tr key={i}>
                                     {/* <TableCell className='font-medium'>{i}</TableCell> */}
-                                    <TableCell>{field.name}</TableCell>
-                                    <TableCell>{(field.size / (1024 * 1024)).toFixed(2)} MB</TableCell>
-                                    <TableCell>
+                                    <TableCell className='border-2'>{field.name}</TableCell>
+                                    <TableCell className='border-2'>{(field.size / (1024 * 1024)).toFixed(2)} MB</TableCell>
+                                    <TableCell className='border-2'>
                                         <div className='flex items-center justify-center'>
                                             <img
-                                                className='rounded-lg w-20 h-20'
+                                                className='rounded-lg w-auto h-20'
                                                 src={field.url}
                                                 alt={field.name}
                                             />
@@ -149,7 +149,7 @@ const VariantImages = () => {
                                             />
                                         </Button>
                                     </TableCell>
-                                </Fragment>
+                                </tr>
                             );
                         })}
                     </Reorder.Group>

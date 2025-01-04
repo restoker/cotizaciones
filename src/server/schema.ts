@@ -12,6 +12,8 @@ import {
 // import type { AdapterAccountType } from 'next-auth/adapters';
 
 export const RoleEnum = pgEnum("roles", ["user", "admin"]);
+export const ProductStateEnum = pgEnum("estado", ["open", "closed"]);
+
 export const users = pgTable("user", {
     id: text("id")
         .primaryKey()
@@ -43,7 +45,7 @@ export const products = pgTable('products', {
     id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
     description: text('description').notNull(),
     title: text('title').notNull(),
-    // created: timestamp('created').defaultNow(),
+    state: ProductStateEnum("estado").default('open'),
     price: real('price').notNull(),
     updated: timestamp('updated').defaultNow(),
 });
